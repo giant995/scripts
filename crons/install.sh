@@ -11,6 +11,7 @@ for file in "${FILES[@]}"; do
 		sudo chmod +x "$SOURCE_DIR/$file"
 	fi
 
+	# Removes existing symlinks
 	if [[ -L "$DEST_DIR/$file" || -e "$DEST_DIR/$file" ]]; then
 		rm "$DEST_DIR/$file"
 	fi
