@@ -11,7 +11,7 @@ The `cronjobs` file should contain a list of desired cronjobs.
 Make sure `install.sh` is executable and run it 
 
 ```bash
-./install.sh
+chmod a+x ./install.sh && ./install.sh
 ``` 
 
 The files `setup-cron` and `cronjobs` should be copied to `/usr/local/bin/`.
