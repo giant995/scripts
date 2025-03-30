@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Load from the same directory, a file named `cronjobs` and make sure all jobs are in the crontab for execution
+
+CRONJOBS_FILE="/usr/local/bin/cronjobs"
+
+# Load existing crontab into temp file
+TEMP_CRON=$(mktemp)
+crontab -l 2>/dev/null > "$TEMP_CRON"
+
+while IFS= read -r job; do
+	# skip empty lines and comments
+	[[ -z "$job" || "$job" =~ ^# ]] && continue
+
+	if ! grep -Fxq "$job" "$TEMP_CRON"; then
+		echo "$job" >> "$TEMP_CRON"
+	fi
+done < "$CRONJOBS_FILE"
+
+# Install updated crontab
+crontab "$TEMP_CRON"
+
+# Clean up
+rm "$TEMP_CRON"

@@ -1,0 +1,1 @@
+30 8 * * * /usr/bin/docker system prune -f
